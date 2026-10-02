@@ -33,17 +33,14 @@
               "createdAt": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamp-temporal@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
                 }
               },
               "id": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/text@1",
+                  "codecId": "pg/int4@1",
                   "kind": "scalar"
                 }
               },
@@ -57,18 +54,15 @@
               "postId": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/text@1",
+                  "codecId": "pg/int4@1",
                   "kind": "scalar"
                 }
               },
               "updatedAt": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamp-temporal@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
                 }
               }
             },
@@ -127,7 +121,7 @@
               "id": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/text@1",
+                  "codecId": "pg/int4@1",
                   "kind": "scalar"
                 }
               },
@@ -141,11 +135,8 @@
               "published": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamp-temporal@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
                 }
               },
               "title": {
@@ -158,11 +149,8 @@
               "updatedAt": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamp-temporal@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
                 }
               }
             },
@@ -228,17 +216,14 @@
               "createdAt": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamp-temporal@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
                 }
               },
               "id": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/text@1",
+                  "codecId": "pg/int4@1",
                   "kind": "scalar"
                 }
               },
@@ -252,7 +237,7 @@
               "postId": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/text@1",
+                  "codecId": "pg/int4@1",
                   "kind": "scalar"
                 }
               }
@@ -315,20 +300,21 @@
                   "nullable": false
                 },
                 "createdAt": {
-                  "codecId": "pg/timestamp-temporal@1",
+                  "codecId": "pg/timestamptz-string@1",
                   "default": {
                     "expression": "now()",
                     "kind": "function"
                   },
-                  "nativeType": "timestamp",
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "nativeType": "timestamptz",
+                  "nullable": false
                 },
                 "id": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
+                  "codecId": "pg/int4@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int4",
                   "nullable": false
                 },
                 "ownerId": {
@@ -337,21 +323,14 @@
                   "nullable": false
                 },
                 "postId": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
+                  "codecId": "pg/int4@1",
+                  "nativeType": "int4",
                   "nullable": false
                 },
                 "updatedAt": {
-                  "codecId": "pg/timestamp-temporal@1",
-                  "default": {
-                    "expression": "now()",
-                    "kind": "function"
-                  },
-                  "nativeType": "timestamp",
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
+                  "nullable": false
                 }
               },
               "foreignKeys": [
@@ -380,7 +359,16 @@
                     "ownerId",
                     "createdAt"
                   ],
-                  "name": "Comment_ownerId_createdAt_idx",
+                  "name": "Comment_ownerId_createdAt_idx_ffd2310a",
+                  "prefix": "Comment_ownerId_createdAt_idx",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "postId"
+                  ],
+                  "name": "Comment_postId_idx_a7a72715",
+                  "prefix": "Comment_postId_idx",
                   "unique": false
                 }
               ],
@@ -399,8 +387,12 @@
                   "nullable": false
                 },
                 "id": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
+                  "codecId": "pg/int4@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int4",
                   "nullable": false
                 },
                 "ownerId": {
@@ -409,16 +401,13 @@
                   "nullable": false
                 },
                 "published": {
-                  "codecId": "pg/timestamp-temporal@1",
+                  "codecId": "pg/timestamptz-string@1",
                   "default": {
                     "expression": "now()",
                     "kind": "function"
                   },
-                  "nativeType": "timestamp",
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "nativeType": "timestamptz",
+                  "nullable": false
                 },
                 "title": {
                   "codecId": "pg/text@1",
@@ -430,16 +419,9 @@
                   "nullable": false
                 },
                 "updatedAt": {
-                  "codecId": "pg/timestamp-temporal@1",
-                  "default": {
-                    "expression": "now()",
-                    "kind": "function"
-                  },
-                  "nativeType": "timestamp",
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
+                  "nullable": false
                 }
               },
               "foreignKeys": [],
@@ -449,7 +431,8 @@
                     "ownerId",
                     "published"
                   ],
-                  "name": "Post_ownerId_published_idx",
+                  "name": "Post_ownerId_published_idx_fe5920e7",
+                  "prefix": "Post_ownerId_published_idx",
                   "unique": false
                 }
               ],
@@ -463,20 +446,21 @@
             "PostLike": {
               "columns": {
                 "createdAt": {
-                  "codecId": "pg/timestamp-temporal@1",
+                  "codecId": "pg/timestamptz-string@1",
                   "default": {
                     "expression": "now()",
                     "kind": "function"
                   },
-                  "nativeType": "timestamp",
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "nativeType": "timestamptz",
+                  "nullable": false
                 },
                 "id": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
+                  "codecId": "pg/int4@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int4",
                   "nullable": false
                 },
                 "ownerId": {
@@ -485,8 +469,8 @@
                   "nullable": false
                 },
                 "postId": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
+                  "codecId": "pg/int4@1",
+                  "nativeType": "int4",
                   "nullable": false
                 }
               },
@@ -516,7 +500,16 @@
                     "ownerId",
                     "createdAt"
                   ],
-                  "name": "PostLike_ownerId_createdAt_idx",
+                  "name": "PostLike_ownerId_createdAt_idx_ffd2310a",
+                  "prefix": "PostLike_ownerId_createdAt_idx",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "postId"
+                  ],
+                  "name": "PostLike_postId_idx_a7a72715",
+                  "prefix": "PostLike_postId_idx",
                   "unique": false
                 }
               ],
@@ -533,42 +526,39 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "266645493941c8dbdc0e07890ba11f15e87279628e7ec819215432e7dad9dcd5"
+    "storageHash": "f268836801b376f530fff305afe6e02ef718bd12d1d2aa4213db671f527d4cdd"
   },
   "execution": {
-    "executionHash": "f6db5d5966761562cc52598d708dc7ba72031d95797fdedf82db6e546b6c11cf",
+    "executionHash": "879c9d6d206202e461312c44b3da628e57963d3cf1595d204e510202ef623123",
     "mutations": {
       "defaults": [
         {
           "onCreate": {
-            "id": "uuidv4",
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "onUpdate": {
+            "id": "timestampNow",
             "kind": "generator"
           },
           "ref": {
             "entry": "Comment",
-            "field": "id",
+            "field": "updatedAt",
             "namespace": "public"
           }
         },
         {
           "onCreate": {
-            "id": "cuid2",
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "onUpdate": {
+            "id": "timestampNow",
             "kind": "generator"
           },
           "ref": {
             "entry": "Post",
-            "field": "id",
-            "namespace": "public"
-          }
-        },
-        {
-          "onCreate": {
-            "id": "uuidv4",
-            "kind": "generator"
-          },
-          "ref": {
-            "entry": "PostLike",
-            "field": "id",
+            "field": "updatedAt",
             "namespace": "public"
           }
         }

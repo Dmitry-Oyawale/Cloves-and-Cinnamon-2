@@ -1,0 +1,36 @@
+// use prisma-8
+
+model Post {
+    id        Int       @id @default(autoincrement())
+    ownerId   String
+    title     String       @default("")
+    content   String
+    published TimestamptzString @default(now())
+    updatedAt temporal.updatedAtString()
+    comments  Comment[]
+    postlike  PostLike[]
+
+    @@index([ownerId, published])
+}
+
+model Comment {
+    id        Int       @id @default(autoincrement())
+    postId    Int
+    ownerId   String
+    content   String       @default("")
+    createdAt TimestamptzString @default(now())
+    updatedAt temporal.updatedAtString() 
+    post      Post         @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@index([ownerId, createdAt])
+}
+
+model PostLike {
+    id        Int       @id @default(autoincrement())
+    postId    Int
+    ownerId   String
+    createdAt TimestamptzString @default(now())
+    post      Post         @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@index([ownerId, createdAt])
+}
