@@ -2,6 +2,55 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Use Node.js 24.11 or newer on the Node 24 line and run `npm ci`.
+Set `DATABASE_URL` in `.env` to your PostgreSQL connection string.
+
+## Database (Prisma 8)
+
+The app pins Prisma CLI `8.0.0-rc.19` and PostgreSQL runtime
+`8.0.0-rc.13`. These release candidates share the rc.13 ORM toolchain;
+runtime rc.14 is incompatible with this CLI's contract compiler.
+
+- Edit models in `src/prisma/contract.prisma`.
+- Import `{ db }` from `@/prisma/db` in server code.
+- Run `npm run db:generate` after model edits. Development startup and
+  production builds also emit the contract automatically.
+- Commit `contract.json`, `contract.d.ts`, and the `migrations/` directory.
+
+For example, in a Server Component or server action:
+
+```ts
+import { db } from "@/prisma/db";
+
+const posts = await db.orm.public.Post.include("comments").all();
+```
+
+The upgrade preserves the existing `timestamp(3)` columns and cascade rules.
+Timestamp values now use `Temporal.PlainDateTime`; the server client loads
+the required polyfill. New post IDs use CUID2; existing IDs remain valid.
+`updatedAt` retains its original creation-time default, not automatic updates.
+
+The configured database has been adopted with `prisma db sign`.
+`prisma/migrations/` is retained only as historical Prisma 7 SQL; active
+Prisma 8 migrations live in `migrations/`, including a baseline for new databases.
+For another existing database with these tables, run `npx prisma db sign`
+before using Prisma 8 migrations. For a new empty database, run
+`npm run db:migrate` to apply the baseline.
+
+For future schema changes:
+
+```bash
+npm run db:generate
+npm run db:plan -- --name describe_change
+# Review the generated migration before applying it.
+npm run db:migrate
+```
+
+`npm run db:verify` checks the database against the contract.
+See the [Prisma 7 to 8 migration guide](https://www.prisma.io/docs/guides/upgrade-prisma-orm/postgresql).
+
+## Development
+
 First, run the development server:
 
 ```bash
